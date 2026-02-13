@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For You ❤️</title>
+    <title>untuk venus</title>
     <style>
         body, html {
             margin: 0;
@@ -57,16 +57,11 @@
             justify-content: center;
             transition: all 0.3s ease;
         }
-
-        .nav-btn:hover {
-            background: rgba(255, 255, 255, 0.5);
-            transform: translateY(-50%) scale(1.1);
-        }
     </style>
 </head>
 <body>
 
-    <audio id="mySong" src="song.mp3" autoplay loop></audio>
+    <audio id="mySong" src="song.mp3" loop></audio>
 
     <div class="slide-container">
         <img src="slide1.jpg" class="slide-img active">
@@ -75,12 +70,13 @@
         <img src="slide4.jpg" class="slide-img">
         <img src="slide5.jpg" class="slide-img">
 
-        <
+        <button class="nav-btn" onclick="nextSlide()">❯</button>
     </div>
 
     <script>
         let currentIndex = 0;
         const slides = document.querySelectorAll('.slide-img');
+        const song = document.getElementById('mySong');
 
         function nextSlide() {
             slides[currentIndex].classList.remove('active');
@@ -88,11 +84,12 @@
             slides[currentIndex].classList.add('active');
         }
 
+        // Memastikan lagu berputar saat layar pertama kali diklik
         document.body.addEventListener('click', () => {
-            const song = document.getElementById('mySong');
-            song.play().catch(e => console.log("Lagu diputar"));
+            if (song.paused) {
+                song.play().catch(e => console.log("Audio play dipicu"));
+            }
         }, { once: true });
     </script>
 </body>
-
 </html>

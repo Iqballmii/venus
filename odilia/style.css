@@ -1,0 +1,77 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+    background-image: url("images/bg.jpg"); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.85); 
+    padding: 40px;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 450px;
+    position: relative;
+}
+
+h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 50px;
+    color: #6b1e1e;
+    margin: 0;
+}
+
+p {
+    color: #444;
+    margin: 10px 0 20px 0;
+}
+
+/* Container foto dibuat tidak bisa disentuh sama sekali oleh mouse/jari */
+.image-container {
+    margin-bottom: 20px;
+    pointer-events: none; /* Kunci utama: klik akan tembus ke belakang */
+    user-select: none;
+    position: relative;
+    z-index: 1;
+}
+
+.bottom-img {
+    width: 100%;
+    max-width: 220px;
+    height: auto;
+    mix-blend-mode: multiply; 
+    opacity: 0.8;
+}
+
+button {
+    background: #6b1e1e;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 15px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer !important; /* Paksa kursor jadi tangan */
+    transition: all 0.3s ease;
+    width: 100%;
+    position: relative;
+    z-index: 999; /* Angka dewa supaya di paling depan */
+}
+
+button:hover {
+    background: #8b2b2b;
+    transform: scale(1.03);
+}

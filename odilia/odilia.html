@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You ❤️</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100vh; /* Menggunakan vh untuk memastikan tinggi penuh layar */
+            width: 100vw;  /* Menggunakan vw untuk memastikan lebar penuh layar */
+            overflow: hidden;
+            background-color: #000;
+        }
+
+        .slide-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .slide-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ini yang bikin foto penuhin layar tanpa gepeng */
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            z-index: 1;
+        }
+
+        .slide-img.active {
+            opacity: 1;
+            z-index: 2;
+        }
+
+        .nav-btn {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.5);
+            transform: translateY(-50%) scale(1.1);
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="mySong" src="song.mp3" autoplay loop></audio>
+
+    <div class="slide-container">
+        <img src="slide1.jpg" class="slide-img active">
+        <img src="slide2.jpg" class="slide-img">
+        <img src="slide3.jpg" class="slide-img">
+        <img src="slide4.jpg" class="slide-img">
+        <img src="slide5.jpg" class="slide-img">
+
+        <button class="nav-btn" onclick="nextSlide()">❯</button>
+    </div>
+
+    <script>
+        let currentIndex = 0;
+        const slides = document.querySelectorAll('.slide-img');
+
+        function nextSlide() {
+            slides[currentIndex].classList.remove('active');
+            currentIndex = (currentIndex + 1) % slides.length;
+            slides[currentIndex].classList.add('active');
+        }
+
+        document.body.addEventListener('click', () => {
+            const song = document.getElementById('mySong');
+            song.play().catch(e => console.log("Lagu diputar"));
+        }, { once: true });
+    </script>
+</body>
+</html>

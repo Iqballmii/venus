@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merry Christmas Odilia</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap');
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Poppins', sans-serif;
+            /* ID bodyBackground untuk ganti gambar lewat JS */
+            background: url("images/bg.jpg") center/cover no-repeat fixed;
+            transition: background 0.5s ease; /* Transisi halus pas ganti BG */
+            overflow: hidden;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.9); 
+            padding: 40px;
+            border-radius: 25px;
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 { font-family: 'Great Vibes', cursive; font-size: 40px; color: #6b1e1e; margin-bottom: 5px; }
+        .instruction-text { font-size: 16px; color: #6b1e1e; display: block; margin-top: 10px; }
+        p { color: #444; font-size: 14px; margin-bottom: 20px; }
+
+        .btn-trigger {
+            background: #6b1e1e; color: white; border: none; border-radius: 30px;
+            padding: 12px 30px; font-size: 16px; font-weight: 600; cursor: pointer;
+            width: auto; min-width: 150px; position: relative; z-index: 100; white-space: nowrap;
+        }
+
+        #quizSection, #sadMessage { display: none; margin-top: 20px; }
+        .quiz-btns { display: flex; justify-content: center; gap: 20px; transition: all 0.3s ease; }
+        .btn-quiz, .btn-retry {
+            background: #6b1e1e; color: white; border: none; border-radius: 30px;
+            padding: 10px 25px; font-size: 16px; font-weight: 600; cursor: pointer;
+        }
+
+        .flying-img {
+            position: fixed; width: 120px; height: auto; pointer-events: none;
+            z-index: 9999; animation: flyAndSpin 2.5s ease-out forwards;
+        }
+
+        @keyframes flyAndSpin {
+            0% { transform: translate(-50%, -50%) translateY(0) rotate(0deg) scale(0.5); opacity: 0; }
+            15% { opacity: 1; transform: translate(-50%, -50%) translateY(-20px) scale(1); }
+            100% { transform: translate(-50%, -50%) translateY(-120vh) rotate(360deg) scale(1); opacity: 0; }
+        }
+    </style>
+</head>
+<body id="bodyBg">
+
+    <div class="card" id="mainCard">
+        <h1 id="mainTitle">Happy Valentine's Day</h1>
+        <div id="statusMessage">
+            <p id="descText">Odilia Miherva Robertina Pandora Venus!</p>
+        </div>
+        <div class="image-container" id="imgContainer">
+            <img src="images/foto-bawah.png" alt="Odilia" style="width: 100%; max-width: 220px;">
+        </div>
+        <button class="btn-trigger" id="actionBtn" onclick="handleSurprise(event)">click akuu</button>
+
+        <div id="quizSection">
+            <p style="font-weight: 600; font-size: 18px; color: #6b1e1e;">will u be my valentine? </p>
+            <div class="quiz-btns" id="quizContainer">
+                <button class="btn-quiz" id="yesBtn" onmouseover="swapButtons()" onclick="goToFinal()">yessssss</button>
+                <button class="btn-quiz" id="noBtn" onclick="showSadMessage()">no😹</button>
+            </div>
+        </div>
+
+        <div id="sadMessage">
+            <p style="font-size: 16px; color: #444;">oh jadi kamu ga sayang sama aku, jht bngt ven ckp tw.</p>
+            <button class="btn-retry" onclick="resetQuiz()">Ulang</button>
+        </div>
+    </div>
+
+    <audio id="subwaySong" src="subway.mp3" preload="auto" loop></audio>
+    <audio id="sadSong" src="sad.mp3" preload="auto" loop></audio>
+
+    <script>
+        let klikCount = 0;
+        let retryCount = 0;
+        const totalTarget = 33; 
+        const orderTexts = ["oke", "jadi", "kamu", "harus", "click", "aku", "terus", "sampai", "selesai", "lagi", "click lagi", "jangan nyerah :(", "belom", "anjay", "oke oke", "sorry", "belom selesai", "semangat", "odilia", "miherva", "robertina", "pandora", "venus", "lagii", "MAAF", "😛", "lagi", "😹", "OKE LAST", "i lied", "OKE OKE", "ini beneran", "lasttt"];
+
+        const subway = document.getElementById('subwaySong');
+        const sad = document.getElementById('sadSong');
+        const bodyBg = document.getElementById('bodyBg');
+
+        function createFlyingImage(x, y) {
+            const img = document.createElement('img');
+            img.src = klikCount % 2 === 0 ? 'images/hi.jpg' : 'images/hello.jpg';
+            img.className = 'flying-img';
+            img.style.left = x + 'px'; img.style.top = y + 'px';
+            document.body.appendChild(img);
+            setTimeout(() => img.remove(), 2500);
+        }
+
+        function handleSurprise(event) {
+            if (subway.paused) {
+                subway.play().catch(e => console.log("Audio blocked"));
+            }
+
+            klikCount++;
+            createFlyingImage(event.clientX, event.clientY);
+            const btn = document.getElementById('actionBtn');
+            const statusDiv = document.getElementById('statusMessage');
+
+            if (klikCount < totalTarget) {
+                const x = Math.random() * (window.innerWidth - 200);
+                const y = Math.random() * (window.innerHeight - 100);
+                btn.style.position = 'fixed';
+                btn.style.left = x + 'px'; btn.style.top = y + 'px';
+                btn.innerHTML = orderTexts[(klikCount - 1) % orderTexts.length];
+                statusDiv.innerHTML = `<span class="instruction-text">semangat pencetin tombolnya</span>`;
+            } else if (klikCount === totalTarget) {
+                btn.style.position = 'relative';
+                btn.style.left = '0'; btn.style.top = '0'; btn.style.width = '100%'; 
+                btn.innerHTML = "klik akuu!!";
+            } else {
+                btn.style.display = 'none';
+                document.getElementById('imgContainer').style.display = 'none';
+                document.getElementById('statusMessage').style.display = 'none';
+                document.getElementById('quizSection').style.display = 'block';
+            }
+        }
+
+        function swapButtons() {
+            if (retryCount >= 2) return;
+            const container = document.getElementById('quizContainer');
+            container.style.flexDirection = container.style.flexDirection === 'row-reverse' ? 'row' : 'row-reverse';
+        }
+
+        function showSadMessage() {
+            // 
+            bodyBg.style.background = 'url("images/sedih.jpg") center/cover no-repeat fixed';
+            
+            subway.pause();
+            subway.currentTime = 0;
+            sad.play().catch(e => console.log("Sad audio blocked"));
+            
+            document.getElementById('quizSection').style.display = 'none';
+            document.getElementById('sadMessage').style.display = 'block';
+        }
+
+        function resetQuiz() {
+            retryCount++;
+            // 
+            bodyBg.style.background = 'url("images/bg.jpg") center/cover no-repeat fixed';
+            
+            sad.pause();
+            sad.currentTime = 0;
+            subway.play();
+            
+            document.getElementById('sadMessage').style.display = 'none';
+            document.getElementById('quizSection').style.display = 'block';
+        }
+
+        function goToFinal() {
+            window.location.href = "odilia.html";
+        }
+    </script>
+</body>
+</html>

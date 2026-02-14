@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For You ❤️</title>
+    <title>untuk venus</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
         
@@ -17,7 +17,6 @@
             font-family: 'Poppins', sans-serif;
             background: url("images/bg.jpg") center/cover no-repeat fixed;
             overflow: hidden;
-            transition: background 0.5s ease;
         }
 
         /* Kartu putih transparan */
@@ -37,29 +36,29 @@
         .question-img {
             width: 100%;
             border-radius: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             display: block;
         }
 
-        .quiz-btns {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-
-        .btn-quiz {
+        /* Tombol tunggal di tengah */
+        .btn-valentine {
             background: #6b1e1e; 
             color: white; 
             border: none; 
             border-radius: 30px;
-            padding: 12px 25px; 
-            font-size: 16px; 
+            padding: 15px 40px; 
+            font-size: 18px; 
             font-weight: 600; 
             cursor: pointer;
-            flex: 1;
+            width: 100%; /* Tombol memanjang memenuhi kartu */
+            transition: transform 0.2s;
         }
 
-        /* Bagian Foto Final (Slide 1) */
+        .btn-valentine:active {
+            transform: scale(0.95);
+        }
+
+        /* Tampilan Foto Akhir */
         #finalSection {
             display: none;
             position: fixed;
@@ -80,10 +79,7 @@
 
     <div class="card" id="askCard">
         <img src="images/pertanyaan.jpg" class="question-img" alt="Pertanyaan">
-        <div class="quiz-btns">
-            <button class="btn-quiz" onclick="showFinal()">Yes</button>
-            <button class="btn-quiz" onclick="showFinal()">No</button>
-        </div>
+        <button class="btn-valentine" onclick="showFinal()">Venus Imuttt</button>
     </div>
 
     <div id="finalSection">
@@ -96,14 +92,14 @@
         const finalSection = document.getElementById('finalSection');
 
         function showFinal() {
-            // Putar lagu
-            song.play().catch(e => console.log("Audio play dipicu"));
+            // Musik diputar
+            song.play().catch(e => console.log("Audio started"));
 
-            // Sembunyikan kartu & munculkan foto final
+            // Ganti tampilan
             askCard.style.display = 'none';
             finalSection.style.display = 'block';
             
-            // Ubah background body jadi hitam agar foto rapi
+            // Background jadi hitam supaya foto slide1 kelihatan bersih
             document.body.style.background = "#000";
         }
     </script>

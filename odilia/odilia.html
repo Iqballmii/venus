@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>untuk, venus</title>
+    <title>For You ❤️</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
         
@@ -17,9 +17,10 @@
             font-family: 'Poppins', sans-serif;
             background: url("images/bg.jpg") center/cover no-repeat fixed;
             overflow: hidden;
+            transition: background 0.5s ease;
         }
 
-        /* Kartu putih transparan mirip index.html */
+        /* Kartu putih transparan */
         .card {
             background: rgba(255, 255, 255, 0.85); 
             padding: 30px;
@@ -33,7 +34,6 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
-        /* Styling gambar pertanyaan di dalam kartu */
         .question-img {
             width: 100%;
             border-radius: 15px;
@@ -41,7 +41,6 @@
             display: block;
         }
 
-        /* Tombol Yes & No */
         .quiz-btns {
             display: flex;
             justify-content: center;
@@ -58,39 +57,20 @@
             font-weight: 600; 
             cursor: pointer;
             flex: 1;
-            transition: transform 0.2s;
         }
 
-        .btn-quiz:active {
-            transform: scale(0.95);
-        }
-
-        /* --- Bagian Slideshow (Sembunyi di awal) --- */
-        #slideshowSection {
+        /* Bagian Foto Final (Slide 1) */
+        #finalSection {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: 100;
-            background: #000;
         }
 
-        .slide-img {
-            width: 100%; height: 100%;
+        #finalSection img {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            position: absolute;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-        }
-
-        .slide-img.active { opacity: 1; }
-
-        .nav-btn {
-            position: absolute; right: 20px; top: 50%;
-            transform: translateY(-50%);
-            z-index: 110; background: rgba(255,255,255,0.2);
-            color: white; border: 1px solid rgba(255,255,255,0.4);
-            width: 50px; height: 50px; border-radius: 50%;
-            font-size: 20px; cursor: pointer; backdrop-filter: blur(5px);
         }
     </style>
 </head>
@@ -101,44 +81,30 @@
     <div class="card" id="askCard">
         <img src="images/pertanyaan.jpg" class="question-img" alt="Pertanyaan">
         <div class="quiz-btns">
-            <button class="btn-quiz" onclick="startSlideshow()">venus imut</button>
-            <button class="btn-quiz" onclick="startSlideshow()">venus imut</button>
+            <button class="btn-quiz" onclick="showFinal()">Yes</button>
+            <button class="btn-quiz" onclick="showFinal()">No</button>
         </div>
     </div>
 
-    <div id="slideshowSection">
-        <img src="slide1.jpg" class="slide-img active">
-        <img src="slide2.jpg" class="slide-img">
-        <img src="slide3.jpg" class="slide-img">
-        <img src="slide4.jpg" class="slide-img">
-        <img src="slide5.jpg" class="slide-img">
-
-        <button class="nav-btn" onclick="nextSlide()">❯</button>
+    <div id="finalSection">
+        <img src="slide1.jpg" alt="Final Photo">
     </div>
 
     <script>
-        let currentIndex = 0;
-        const slides = document.querySelectorAll('.slide-img');
         const song = document.getElementById('mySong');
         const askCard = document.getElementById('askCard');
-        const slideshowSection = document.getElementById('slideshowSection');
+        const finalSection = document.getElementById('finalSection');
 
-        function startSlideshow() {
+        function showFinal() {
             // Putar lagu
-            song.play().catch(e => console.log("Audio dimainkan"));
+            song.play().catch(e => console.log("Audio play dipicu"));
 
-            // Sembunyikan kartu, munculkan slideshow full layar
+            // Sembunyikan kartu & munculkan foto final
             askCard.style.display = 'none';
-            slideshowSection.style.display = 'block';
+            finalSection.style.display = 'block';
             
-            // Mengubah background body jadi hitam supaya slideshow fokus ke foto
+            // Ubah background body jadi hitam agar foto rapi
             document.body.style.background = "#000";
-        }
-
-        function nextSlide() {
-            slides[currentIndex].classList.remove('active');
-            currentIndex = (currentIndex + 1) % slides.length;
-            slides[currentIndex].classList.add('active');
         }
     </script>
 </body>
